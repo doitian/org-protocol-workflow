@@ -1,12 +1,12 @@
 #!/bin/sh
 
-set -e 
+set -e
 
-CONFIG_EMACSCLIENT=/usr/local/bin/emacsclient
+CONFIG_EMACSCLIENT="${EMACSCLIENT:-/usr/local/bin/emacsclient}"
 
 VAR_PROTOCOL=${1:-capture}
-VAR_TEMPLATE=
 
+VAR_TEMPLATE=
 if [ "$VAR_PROTOCOL" = capture ]; then
   VAR_TEMPLATE="b/"
 fi
@@ -24,6 +24,7 @@ oIFS="$IFS"
 IFS=$'\n'
 VAR_LINES=($(osascript capture.applescript "$VAR_APP"))
 IFS="$oIFS"
+
 for VAR_DATA in "${VAR_LINES[@]}"; do
   if [ "$VAR_PROTOCOL" = "echo" ]; then
     echo "${CONFIG_EMACSCLIENT}" "org-protocol://capture://b/${VAR_DATA}"
