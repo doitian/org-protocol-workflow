@@ -9,6 +9,8 @@ on run argv
 		set theLines to linkFinder(theApp)
 	else if theApp = "Path Finder" then
 		set theLines to linkPathFinder(theApp)
+  else if theApp = "Mail" then
+		set theLines to linkMail(theApp)
 	else
 		set theLines to linkApplication(theApp)
 	end if
@@ -100,3 +102,20 @@ on linkPathFinder(theApp)
 
   theLines
 end linkFinder
+
+on linkMail(theApp)
+  set theLines to {}
+
+  tell application "Mail"
+    set theSelection to the selection
+    repeat with aMail in theSelection
+      set theID to message id of aMail
+      set theSubject to subject of aMail
+      set theSender to sender of aMail
+
+      set end of theLines to {"message://" & theID, theSubject, "from " & theSender}
+    end repeat
+  end tell
+
+  theLines
+end linkMail
