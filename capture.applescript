@@ -43,24 +43,15 @@ on linkApplication(theApp)
 end linkApplication
 
 on linkChrome(theApp)
-	if theApp = "Google Chrome" then
-		tell application "Google Chrome"
+  using terms from application "Google Chrome"
+		tell application theApp
 			tell active tab of window 1
 				set theURL to URL
 				set theShortTitle to title
 				copy selection
 			end tell
 		end tell
-	else
-		tell application "Chromium"
-			tell active tab of window 1
-				set theURL to URL
-				set theShortTitle to title
-				copy selection
-				delay 0.5
-			end tell
-		end tell
-	end if
+	end using terms from
 
 	set theMessage to (get the clipboard)
   set theTitle to theShortTitle & " in " & theApp
