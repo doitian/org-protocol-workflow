@@ -11,6 +11,8 @@ on run argv
 		set theLines to linkPathFinder(theApp)
   else if theApp = "Mail" then
 		set theLines to linkMail(theApp)
+  else if theApp = "DEVONthink Pro" then
+		set theLines to linkDEVONthink(theApp)
 	else
 		set theLines to linkApplication(theApp)
 	end if
@@ -119,3 +121,24 @@ on linkMail(theApp)
 
   theLines
 end linkMail
+
+on linkDEVONthink(theApp)
+  set theLines to {}
+
+  tell application "DEVONthink Pro"
+    set theSelection to the selection
+    repeat with aFile in theSelection
+      set theURL to reference URL of aFile
+      set theTitle to name of aFile
+      set thePath to path of aFile
+      set theMessage to ""
+      if not thePath = "" then
+         set theMessage to ("Open in finder: [[file://" & thePath & "][" & theTitle & "]]")
+      end if
+
+      set end of theLines to {"open:" & theURL, theTitle, theMessage}
+    end repeat
+  end tell
+
+  theLines
+end linkDEVONthink
