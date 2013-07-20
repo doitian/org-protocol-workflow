@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>bundleid</key>
+	<string>com.github.doitian.org-protocol</string>
+	<key>connections</key>
+	<dict/>
+	<key>createdby</key>
+	<string>Ian Yang</string>
+	<key>description</key>
+	<string>Use org-protocol</string>
+	<key>disabled</key>
+	<false/>
+	<key>name</key>
+	<string>org-protocol</string>
+	<key>objects</key>
+	<array>
+		<dict>
+			<key>config</key>
+			<dict>
+				<key>escaping</key>
+				<integer>127</integer>
+				<key>type</key>
+				<integer>0</integer>
+			</dict>
+			<key>type</key>
+			<string>alfred.workflow.action.script</string>
+			<key>uid</key>
+			<string>DE4D7414-4A42-4FB3-BCD0-D2CAD17A6CFF</string>
+			<key>version</key>
+			<integer>0</integer>
+		</dict>
+	</array>
+	<key>readme</key>
+	<string></string>
+	<key>uidata</key>
+	<dict>
+		<key>DE4D7414-4A42-4FB3-BCD0-D2CAD17A6CFF</key>
+		<dict>
+			<key>ypos</key>
+			<real>230</real>
+		</dict>
+	</dict>
+	<key>webaddress</key>
+	<string>https://github.com/doitian/org-protocol-workflow</string>
+</dict>
+</plist>
