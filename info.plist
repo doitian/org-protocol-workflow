@@ -34,7 +34,9 @@
 				<key>escaping</key>
 				<integer>127</integer>
 				<key>script</key>
-				<string>sh ./main.sh capture</string>
+				<string>export EMACSCLIENT=/usr/local/bin/emacsclient
+
+sh ./main.sh capture</string>
 				<key>type</key>
 				<integer>0</integer>
 			</dict>
@@ -72,7 +74,24 @@
 		</dict>
 	</array>
 	<key>readme</key>
-	<string></string>
+	<string>### Installation
+
+- Link the directory directly: `make link`.
+- Create a package and import it: `make install`.
+- Download [org-protocol.alfredworkflow](#) and import it.
+
+### Configuration
+
+- Set the keyboard shortcut
+- Double click "Run Script", and change `EMACSCLIENT` there.
+- If you don't want to install "Feedly" as a Fluid app template, double click
+  "Run Script", then "open workflow folder". Update "Feedly" in
+  `capture.applescript` in the folder.
+-   Create an `org-capture` template using key "b", it's better to set `:immediate-finish`
+
+        ("b" "org-protocol" entry (file+headline (concat org-directory "/inbox.org") "Bookmarks")
+         "* TODO %:description\n  :PROPERTIES:\n  :CREATED: %U\n  :END:\n  %c\n\n  %i"
+         :prepend t :empty-lines 1 :immediate-finish t)</string>
 	<key>uidata</key>
 	<dict>
 		<key>5928B7BA-7181-4FBD-BEC9-913B34FB0CFE</key>
