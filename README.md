@@ -29,7 +29,7 @@ Use your favorite shortcut manager to add a binding to run `main.sh` in **this d
 
 - Link the directory directly: `make link`.
 - Create a package and import it: `make install`.
-- Download [org-protocol.alfredworkflow](#) and import it.
+- Download [org-protocol.alfredworkflow](https://github.com/doitian/org-protocol-workflow/releases/download/v1.0.1/org-protocol.alfredworkflow) and import it.
 
 ### Configuration
 
