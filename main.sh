@@ -16,7 +16,7 @@ if [ -n "$2" ]; then
 else
   VAR_APP=$(osascript -e '
     tell application "System Events"
-      item 1 of (get name of processes whose frontmost is true)
+      item 1 of (get short name of processes whose frontmost is true)
     end tell')
 fi
 
