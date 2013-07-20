@@ -13,6 +13,8 @@ on run argv
 		set theLines to linkMail(theApp)
   else if theApp = "DEVONthink Pro" then
 		set theLines to linkDEVONthink(theApp)
+  else if theApp = "Contacts" then
+		set theLines to linkContacts(theApp)
 	else
 		set theLines to linkApplication(theApp)
 	end if
@@ -142,3 +144,19 @@ on linkDEVONthink(theApp)
 
   theLines
 end linkDEVONthink
+
+on linkContacts(theApp)
+  set theLines to {}
+
+  tell application "Contacts"
+    set theSelection to the selection
+    repeat with aPerson in theSelection
+      set theID to id of aPerson
+      set theTitle to name of aPerson
+
+      set end of theLines to {"addressbook://" & theID, theTitle, ""}
+    end repeat
+  end tell
+
+  theLines
+end linkContacts
