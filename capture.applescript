@@ -1,5 +1,8 @@
 on run argv
   set theApp to item 1 of argv
+  if theApp = "Chrome" then
+    set theApp to "Google Chrome"
+  end if
 
   set theResult to {}
   set theLines to {}
@@ -48,13 +51,6 @@ end encodeURIComponent
 
 on linkApplication(theApp)
   set theURL to POSIX path of (path to application theApp)
-
-  tell application "System Events"
-    tell (the first process whose frontmost is true)
-      keystroke "c" using command down
-    end tell
-  end tell
-
   set theMessage to get the clipboard
 
   {{"file://" & theURL, theApp, theMessage}}
@@ -65,13 +61,12 @@ on linkChrome(theApp)
     tell application theApp
       tell active tab of window 1
         set theURL to URL
-        set theShortTitle to title
+        set theTitle to title
       end tell
     end tell
   end using terms from
 
   set theMessage to (get the clipboard)
-  set theTitle to theShortTitle & " in " & theApp
   {{theURL, theTitle, theMessage}}
 end linkChrome
 
