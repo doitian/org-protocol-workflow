@@ -15,7 +15,7 @@ on run argv
     set theLines to linkPathFinder(theApp)
   else if theApp = "Mail" then
     set theLines to linkMail(theApp)
-  else if theApp = "DEVONthink Pro" then
+  else if theApp = "DEVONthink Pro" or theApp = "DEVONthink Pro Office" then
     set theLines to linkDEVONthink(theApp)
   else if theApp = "Contacts" then
     set theLines to linkContacts(theApp)
