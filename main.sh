@@ -29,6 +29,7 @@ for VAR_DATA in "${VAR_LINES[@]}"; do
   if [ "$VAR_PROTOCOL" = "echo" ]; then
     echo "${CONFIG_EMACSCLIENT}" "org-protocol://capture://b/${VAR_DATA}"
   else
-    ${CONFIG_EMACSCLIENT} "org-protocol://${VAR_PROTOCOL}://${VAR_TEMPLATE}${VAR_DATA}"
+    echo "${VAR_DATA%/*}" | ruby -ruri -pe '$_ = URI.unescape($_.split("/").reverse.join(" "))'
+    ${CONFIG_EMACSCLIENT} "org-protocol://${VAR_PROTOCOL}://${VAR_TEMPLATE}${VAR_DATA}" &> /dev/null
   fi
 done

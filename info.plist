@@ -17,6 +17,17 @@
 				<string></string>
 			</dict>
 		</array>
+		<key>DE4D7414-4A42-4FB3-BCD0-D2CAD17A6CFF</key>
+		<array>
+			<dict>
+				<key>destinationuid</key>
+				<string>7CAF93FD-D458-48AD-8DCE-A8DB0D90EC47</string>
+				<key>modifiers</key>
+				<integer>0</integer>
+				<key>modifiersubtext</key>
+				<string></string>
+			</dict>
+		</array>
 	</dict>
 	<key>createdby</key>
 	<string>Ian Yang</string>
@@ -72,6 +83,31 @@ sh ./main.sh capture</string>
 			<key>version</key>
 			<integer>0</integer>
 		</dict>
+		<dict>
+			<key>config</key>
+			<dict>
+				<key>lastpathcomponent</key>
+				<false/>
+				<key>onlyshowifquerypopulated</key>
+				<false/>
+				<key>output</key>
+				<integer>0</integer>
+				<key>removeextension</key>
+				<false/>
+				<key>sticky</key>
+				<false/>
+				<key>text</key>
+				<string>Captured {query}</string>
+				<key>title</key>
+				<string>org-protocol</string>
+			</dict>
+			<key>type</key>
+			<string>alfred.workflow.output.notification</string>
+			<key>uid</key>
+			<string>7CAF93FD-D458-48AD-8DCE-A8DB0D90EC47</string>
+			<key>version</key>
+			<integer>0</integer>
+		</dict>
 	</array>
 	<key>readme</key>
 	<string>### Installation
@@ -117,6 +153,11 @@ sh ./main.sh capture</string>
 	<key>uidata</key>
 	<dict>
 		<key>5928B7BA-7181-4FBD-BEC9-913B34FB0CFE</key>
+		<dict>
+			<key>ypos</key>
+			<real>10</real>
+		</dict>
+		<key>7CAF93FD-D458-48AD-8DCE-A8DB0D90EC47</key>
 		<dict>
 			<key>ypos</key>
 			<real>10</real>
