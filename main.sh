@@ -20,6 +20,16 @@ else
     end tell')
 fi
 
+if [ "$VAR_APP" = "Emacs" ]; then
+  if [ "$VAR_PROTOCOL" = "echo" ]; then
+    echo "${CONFIG_EMACSCLIENT}" -e '(with-current-buffer (window-buffer (car (window-list))) (org-capture))'
+  else
+    echo "Capture current Emacs buffer"
+    ${CONFIG_EMACSCLIENT} -e '(with-current-buffer (window-buffer (car (window-list))) (org-capture))' &> /dev/null
+  fi
+  return
+fi
+
 oIFS="$IFS"
 IFS=$'\n'
 VAR_LINES=($(osascript capture.applescript "$VAR_APP"))
