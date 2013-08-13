@@ -1,5 +1,10 @@
 on run argv
   set theApp to item 1 of argv
+  set theBrowser to "Google Chrome"
+  if (count of argv) > 1 then
+    set theBrowser to item 2 of argv
+  end if
+
   if theApp = "Chrome" then
     set theApp to "Google Chrome"
   end if
@@ -19,6 +24,8 @@ on run argv
     set theLines to linkDEVONthink(theApp)
   else if theApp = "Contacts" then
     set theLines to linkContacts(theApp)
+  else if theApp = "Dash" then
+    set theLines to linkDash(theApp, theBrowser)
   else
     tell application "System Events"
       tell application process theApp
@@ -179,3 +186,26 @@ on linkFluidApp(theApp)
   set theTitle to theShortTitle & " in " & theApp
   {{theURL, theTitle, theMessage}}
 end linkFluidApp
+
+on linkBrowser(theBrowser)
+  if theBrowser = "Google Chrome" or theBrowser = "Chromium" then
+    linkChrome(theBrowser)
+  else
+    tell application "System Events"
+      keystroke "l" using {command down}
+      keystroke "c" using {command down}
+      set theURL to (get the clipboard)
+      {{theURL, theURL, ""}}
+    end tell
+  end if
+end linkBrowser
+
+on linkDash(theApp, theBrowser)
+  tell application "System Events"
+    tell process "Dash"
+      click button 1 of group 2 of splitter group 1 of window 1
+      delay 1
+    end tell
+  end tell
+  linkBrowser(theBrowser)
+end linkDash

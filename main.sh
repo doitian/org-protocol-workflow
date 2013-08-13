@@ -3,6 +3,7 @@
 set -e
 
 CONFIG_EMACSCLIENT="${EMACSCLIENT:-/usr/local/bin/emacsclient}"
+CONFIG_BROWSER="${BROWSWER:-Google Chrome}"
 
 VAR_PROTOCOL=${1:-capture}
 
@@ -32,7 +33,7 @@ fi
 
 oIFS="$IFS"
 IFS=$'\n'
-VAR_LINES=($(osascript capture.applescript "$VAR_APP"))
+VAR_LINES=($(osascript capture.applescript "$VAR_APP" "$CONFIG_BROWSER"))
 IFS="$oIFS"
 
 for VAR_DATA in "${VAR_LINES[@]}"; do

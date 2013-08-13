@@ -15,6 +15,15 @@ Use your favorite shortcut manager to add a binding to run `main.sh` in **this d
         export EMACSCLIENT=/Applications/Emacs.app/Contents/MacOS/bin/emacsclient
         ./main.sh
 
+-   `browser`: default is `Google Chrome`. Update `CONFIG_BROWSER` directly
+
+        CONFIG_BROWSER='Safari'
+
+    , or set environment variable `BROSWER`
+
+        export BROWSER='Safari'
+        ./main.sh
+
 -   Fluid: It is assumed that you have created an App with name "Feedly" using Fluid. If you don't want to install Feedly as an Fluid app, change it in `capture.applescript`
 
 ## Emacs
@@ -69,3 +78,4 @@ Use your favorite shortcut manager to add a binding to run `main.sh` in **this d
 - Fluid Apps (require creating a Fluid app with name "Feedly")
 - Mail
 - Contacts
+- Dash
