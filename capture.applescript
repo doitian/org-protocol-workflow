@@ -26,6 +26,10 @@ on run argv
     set theLines to linkContacts(theApp)
   else if theApp = "Dash" then
     set theLines to linkDash(theApp, theBrowser)
+  else if theApp = "Evernote" then
+    set theLines to linkEvernote(theApp)
+  else if theApp = "Safari" then
+    set theLines to linkSafari(theApp)
   else
     tell application "System Events"
       tell application process theApp
@@ -60,7 +64,7 @@ on linkApplication(theApp)
   set theURL to POSIX path of (path to application theApp)
   set theMessage to get the clipboard
 
-  {{"file://" & theURL, theApp, theMessage}}
+  {{"file://" & theURL, theApp & " :app:", theMessage}}
 end linkApplication
 
 on linkChrome(theApp)
@@ -74,8 +78,20 @@ on linkChrome(theApp)
   end using terms from
 
   set theMessage to (get the clipboard)
-  {{theURL, theTitle, theMessage}}
+  {{theURL, theTitle & " :web:", theMessage}}
 end linkChrome
+
+on linkSafari(theApp)
+  tell application "Safari"
+    tell current tab of window 1
+      set theURL to URL
+      set theTitle to name
+    end tell
+  end tell
+
+  set theMessage to (get the clipboard)
+  {{theURL, theTitle & " :web:", theMessage}}
+end linkSafari
 
 on linkFinder(theApp)
   set theLines to {}
@@ -90,7 +106,7 @@ on linkFinder(theApp)
       
       set theMessage to ("in Finder directory [[file://" & theContainerURL & "][" & theContainerName & "]]")
 
-      set end of theLines to {"file://" & theURL, theBasename, theMessage}
+      set end of theLines to {"file://" & theURL, theBasename & " :file:", theMessage}
     end repeat
   end tell
   
@@ -110,7 +126,7 @@ on linkPathFinder(theApp)
 
       set theMessage to ("in Path Finder directory [[file://" & theContainerURL & "][" & theContainerName & "]]")
 
-      set end of theLines to {"file://" & theURL, theBasename, theMessage}
+      set end of theLines to {"file://" & theURL, theBasename & " :file:", theMessage}
     end repeat
   end tell
 
@@ -127,7 +143,7 @@ on linkMail(theApp)
       set theSubject to subject of aMail
       set theSender to sender of aMail
 
-      set end of theLines to {"message://" & theID, theSubject, "from " & theSender}
+      set end of theLines to {"message://" & theID, theSubject & " :@message:", "from " & theSender}
     end repeat
   end tell
 
@@ -148,7 +164,7 @@ on linkDEVONthink(theApp)
          set theMessage to ("Open in finder: [[file://" & thePath & "][" & theTitle & "]]")
       end if
 
-      set end of theLines to {"open:" & theURL, theTitle, theMessage}
+      set end of theLines to {"open:" & theURL, theTitle & " :devon:", theMessage}
     end repeat
   end tell
 
@@ -164,7 +180,7 @@ on linkContacts(theApp)
       set theID to id of aPerson
       set theTitle to name of aPerson
 
-      set end of theLines to {"addressbook://" & theID, theTitle, ""}
+      set end of theLines to {"addressbook://" & theID, theTitle & " :contact:", ""}
     end repeat
   end tell
 
@@ -184,7 +200,7 @@ on linkFluidApp(theApp)
 
   set theMessage to (get the clipboard)
   set theTitle to theShortTitle & " in " & theApp
-  {{theURL, theTitle, theMessage}}
+  {{theURL, theTitle & " :web:", theMessage}}
 end linkFluidApp
 
 on linkBrowser(theBrowser)
@@ -195,7 +211,7 @@ on linkBrowser(theBrowser)
       keystroke "l" using {command down}
       keystroke "c" using {command down}
       set theURL to (get the clipboard)
-      {{theURL, theURL, ""}}
+      {{theURL, theURL & " :web:", ""}}
     end tell
   end if
 end linkBrowser
@@ -209,3 +225,20 @@ on linkDash(theApp, theBrowser)
   end tell
   linkBrowser(theBrowser)
 end linkDash
+
+on linkEvernote(theApp)
+  set theLines to {}
+
+  tell application "Evernote"
+    set theSelection to the selection
+    repeat with aNote in theSelection
+      set theURL to note link of aNote
+      set theTitle to title of aNote
+      set theNotebook to the name of notebook of aNote
+
+      set end of theLines to {"open:" & theURL, theTitle & " :evernote:", "from " & theNotebook}
+    end repeat
+  end tell
+
+  theLines
+end linkEvernote
