@@ -11,7 +11,7 @@ on run argv
 
   set theResult to {}
   set theLines to {}
-  
+
   if theApp = "Google Chrome" or theApp = "Chromium" then
     set theLines to linkChrome(theApp)
   else if theApp = "Finder" then
@@ -43,15 +43,15 @@ on run argv
       set theLines to linkApplication(theApp)
     end if
   end if
-  
+
   repeat with aLine in theLines
     set theURL to item 1 of aLine
     set theTitle to item 2 of aLine
     set theMessage to item 3 of aLine
-    
+
     set end of theResult to encodeURIComponent(theURL) & "/" & encodeURIComponent(theTitle) & "/" & encodeURIComponent(theMessage)
   end repeat
-  
+
   set the text item delimiters of AppleScript to "\n"
   theResult as text
 end run
@@ -95,7 +95,7 @@ end linkSafari
 
 on linkFinder(theApp)
   set theLines to {}
-  
+
   tell application "Finder"
     set theSelection to the selection
     repeat with aFile in theSelection
@@ -103,13 +103,13 @@ on linkFinder(theApp)
       set theBasename to name of aFile
       set theContainerURL to POSIX path of ((container of aFile) as alias)
       set theContainerName to name of container of aFile
-      
+
       set theMessage to ("in Finder directory [[file://" & theContainerURL & "][" & theContainerName & "]]")
 
       set end of theLines to {"file://" & theURL, theBasename & " :file:", theMessage}
     end repeat
   end tell
-  
+
   theLines
 end linkFinder
 
@@ -131,7 +131,7 @@ on linkPathFinder(theApp)
   end tell
 
   theLines
-end linkFinder
+end linkPathFinder
 
 on linkMail(theApp)
   set theLines to {}
@@ -161,7 +161,7 @@ on linkDEVONthink(theApp)
       set thePath to path of aFile
       set theMessage to ""
       if not thePath = "" then
-         set theMessage to ("Open in finder: [[file://" & thePath & "][" & theTitle & "]]")
+        set theMessage to ("Open in finder: [[file://" & thePath & "][" & theTitle & "]]")
       end if
 
       set end of theLines to {"open:" & theURL, theTitle & " :devon:", theMessage}
@@ -191,7 +191,7 @@ on linkFluidApp(theApp)
   -- Assume there is a fluid app Feedly in system
   using terms from application "Feedly"
     tell application theApp
-      tell first tab of browser window 1 whose selected is true
+      tell (first tab of browser window 1 whose selected is true)
         set theURL to URL
         set theShortTitle to title
       end tell
