@@ -18,6 +18,8 @@ on run argv
     set theLines to linkFinder(theApp)
   else if theApp = "Path Finder" then
     set theLines to linkPathFinder(theApp)
+  else if theApp = "Airmail" then
+    set theLines to linkAirmail(theApp)
   else if theApp = "Mail" then
     set theLines to linkMail(theApp)
   else if theApp = "DEVONthink Pro" or theApp = "DEVONthink Pro Office" then
@@ -149,6 +151,21 @@ on linkMail(theApp)
 
   theLines
 end linkMail
+
+on linkAirmail(theApp)
+  set theLines to {}
+
+  tell application "Airmail"
+    set theUrl to the selectedMessageUrl
+    set theMessage to the selected message
+    set theSubject to subject of theMessage
+    set theSender to sender of theMessage
+
+    set end of theLines to {theUrl, theSubject & " :@message:", "from " & theSender}
+  end tell
+
+  theLines
+end linkAirmail
 
 on linkDEVONthink(theApp)
   set theLines to {}
