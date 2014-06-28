@@ -16,10 +16,10 @@ on run argv
     set theLines to linkChrome(theApp)
   else if theApp = "Finder" then
     set theLines to linkFinder(theApp)
-  else if theApp = "Path Finder" then
-    set theLines to linkPathFinder(theApp)
-  else if theApp = "Airmail" then
-    set theLines to linkAirmail(theApp)
+  -- else if theApp = "Path Finder" then
+  --   set theLines to linkPathFinder(theApp)
+  -- else if theApp = "Airmail" then
+  --   set theLines to linkAirmail(theApp)
   else if theApp = "Mail" then
     set theLines to linkMail(theApp)
   else if theApp = "DEVONthink Pro" or theApp = "DEVONthink Pro Office" then
@@ -115,25 +115,25 @@ on linkFinder(theApp)
   theLines
 end linkFinder
 
-on linkPathFinder(theApp)
-  set theLines to {}
+-- on linkPathFinder(theApp)
+--   set theLines to {}
 
-  tell application "Path Finder"
-    set theSelection to the selection
-    repeat with aFile in theSelection
-      set theURL to POSIX path of aFile
-      set theBasename to name of aFile
-      set theContainerURL to POSIX path of (container of aFile)
-      set theContainerName to name of container of aFile
+--   tell application "Path Finder"
+--     set theSelection to the selection
+--     repeat with aFile in theSelection
+--       set theURL to POSIX path of aFile
+--       set theBasename to name of aFile
+--       set theContainerURL to POSIX path of (container of aFile)
+--       set theContainerName to name of container of aFile
 
-      set theMessage to ("in Path Finder directory [[file://" & theContainerURL & "][" & theContainerName & "]]")
+--       set theMessage to ("in Path Finder directory [[file://" & theContainerURL & "][" & theContainerName & "]]")
 
-      set end of theLines to {"file://" & theURL, theBasename & " :file:", theMessage}
-    end repeat
-  end tell
+--       set end of theLines to {"file://" & theURL, theBasename & " :file:", theMessage}
+--     end repeat
+--   end tell
 
-  theLines
-end linkPathFinder
+--   theLines
+-- end linkPathFinder
 
 on linkMail(theApp)
   set theLines to {}
@@ -152,20 +152,20 @@ on linkMail(theApp)
   theLines
 end linkMail
 
-on linkAirmail(theApp)
-  set theLines to {}
+-- on linkAirmail(theApp)
+--   set theLines to {}
 
-  tell application "Airmail"
-    set theUrl to the selectedMessageUrl
-    set theMessage to the selected message
-    set theSubject to subject of theMessage
-    set theSender to sender of theMessage
+--   tell application "Airmail"
+--     set theUrl to the selectedMessageUrl
+--     set theMessage to the selected message
+--     set theSubject to subject of theMessage
+--     set theSender to sender of theMessage
 
-    set end of theLines to {theUrl, theSubject & " :@message:", "from " & theSender}
-  end tell
+--     set end of theLines to {theUrl, theSubject & " :@message:", "from " & theSender}
+--   end tell
 
-  theLines
-end linkAirmail
+--   theLines
+-- end linkAirmail
 
 on linkDEVONthink(theApp)
   set theLines to {}
