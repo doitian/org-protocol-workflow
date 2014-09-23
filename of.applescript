@@ -57,14 +57,14 @@ on alfred_script(q)
   end tell
 end alfred_script
 
-on encodeURIComponent(theURI)
-  set escURI to do shell script "ruby -ruri -e 'ARGV.each {|a| puts URI.escape(%Q<#{a}>, /([^-._~0-9A-Za-z])/n)}' -- " & quoted form of theURI
-end encodeURIComponent
+on escapeURI(theURI)
+  set escURI to do shell script "ruby -ruri -e 'ARGV.each {|a| puts URI.escape(%Q<#{a}>)}' -- " & quoted form of theURI
+end escapeURI
 
 on linkApplication(theApp)
   set theURL to POSIX path of (path to application theApp)
 
-  {{name: theApp, theNote: "file://" & theURL}}
+  {{name: theApp, theNote: "file://" & my escapeURI(theURL)}}
 end linkApplication
 
 on linkChrome(theApp)
@@ -100,11 +100,10 @@ on linkFinder(theApp)
       set theURL to POSIX path of (aFile as alias)
       set theBasename to name of aFile
       set theContainerURL to POSIX path of ((container of aFile) as alias)
-      set theContainerName to name of container of aFile
 
-      set theMessage to ("in Finder directory [[file://" & theContainerURL & "][" & theContainerName & "]]")
+      set theMessage to ("in directory " & my escapeURI(theContainerURL))
 
-      set end of theTasks to {name: "[File] " + theBasename, theNote: "file://" & theURL & "\n" & theMessage}
+      set end of theTasks to {name: "[File] " & theBasename, theNote: (my escapeURI("file://" & theURL)) & "\n" & theMessage}
     end repeat
   end tell
 
