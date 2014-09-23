@@ -104,7 +104,7 @@ on linkFinder(theApp)
 
       set theMessage to ("in Finder directory [[file://" & theContainerURL & "][" & theContainerName & "]]")
 
-      set end of theTasks to {name: "File " + theBasename, theNote: "file://" & theURL & "\n" & theMessage}
+      set end of theTasks to {name: "[File] " + theBasename, theNote: "file://" & theURL & "\n" & theMessage}
     end repeat
   end tell
 
@@ -141,7 +141,7 @@ on linkMail(theApp)
       set theSubject to subject of aMail
       set theSender to sender of aMail
 
-      set end of theTasks to {name: "Email " & theSubject & " from " & theSender, theNote: "message://" & theID}
+      set end of theTasks to {name: "[Email] " & theSubject & " from " & theSender, theNote: "message://" & theID}
     end repeat
   end tell
 
@@ -157,7 +157,7 @@ on linkAirmail(theApp)
     set theSubject to subject of theMessage
     set theSender to sender of theMessage
 
-    set end of theTasks to {name: "Email " & theSubject & " from " & theSender, theNote: theUrl}
+    set end of theTasks to {name: "[Email] " & theSubject & " from " & theSender, theNote: theUrl}
   end tell
 
   theTasks
@@ -172,7 +172,7 @@ on linkDEVONthink(theApp)
       set theURL to reference URL of aFile
       set theTitle to name of aFile
 
-      set end of theTasks to {name: "Devon " & theTitle, theNote: theURL}
+      set end of theTasks to {name: "[Devon] " & theTitle, theNote: theURL}
     end repeat
   end tell
 
@@ -201,13 +201,12 @@ on linkFluidApp(theApp)
     tell application theApp
       tell (first tab of browser window 1 whose selected is true)
         set theURL to URL
-        set theShortTitle to title
+        set theTitle to title
       end tell
     end tell
   end using terms from
 
-  set theTitle to theShortTitle & " in " & theApp
-  {{theNote: theURL, name: theTitle}}
+  {{theNote: theURL, name: "[" & theApp & "] " & theTitle}}
 end linkFluidApp
 
 on linkBrowser(theBrowser)
@@ -245,7 +244,7 @@ on linkEvernote(theApp)
       set theTitle to title of aNote
       set theNotebook to the name of notebook of aNote
 
-      set end of theTasks to {theNote: theURL, name: "Evernote " & theTitle & " from " & theNotebook}
+      set end of theTasks to {theNote: theURL, name: "[Evernote] " & theTitle & " from " & theNotebook}
     end repeat
   end tell
 
