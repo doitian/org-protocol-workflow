@@ -17,8 +17,8 @@ on alfred_script(q)
     set theTasks to linkFinder(theApp)
   -- else if theApp = "Path Finder" then
   --   set theTasks to linkPathFinder(theApp)
-  else if theApp = "Airmail" then
-    set theTasks to linkAirmail(theApp)
+  -- else if theApp = "Airmail" then
+  --   set theTasks to linkAirmail(theApp)
   else if theApp = "Mail" then
     set theTasks to linkMail(theApp)
   else if theApp = "DEVONthink Pro" or theApp = "DEVONthink Pro Office" then
@@ -70,7 +70,7 @@ end linkApplication
 on linkChrome(theApp)
   using terms from application "Google Chrome"
     tell application theApp
-      tell active tab of window 1
+      tell active tab of front window
         set theURL to URL
         set theTitle to title
       end tell
@@ -82,7 +82,7 @@ end linkChrome
 
 on linkSafari(theApp)
   tell application "Safari"
-    tell current tab of window 1
+    tell current tab of front window
       set theURL to URL
       set theTitle to name
     end tell
@@ -147,20 +147,20 @@ on linkMail(theApp)
   theTasks
 end linkMail
 
-on linkAirmail(theApp)
-  set theTasks to {}
+-- on linkAirmail(theApp)
+--   set theTasks to {}
 
-  tell application "Airmail"
-    set theUrl to the selectedMessageUrl
-    set theMessage to the selected message
-    set theSubject to subject of theMessage
-    set theSender to sender of theMessage
+--   tell application "Airmail"
+--     set theUrl to the selectedMessageUrl
+--     set theMessage to the selected message
+--     set theSubject to subject of theMessage
+--     set theSender to sender of theMessage
 
-    set end of theTasks to {name: "[Email] " & theSubject & " from " & theSender, theNote: theUrl}
-  end tell
+--     set end of theTasks to {name: "[Email] " & theSubject & " from " & theSender, theNote: theUrl}
+--   end tell
 
-  theTasks
-end linkAirmail
+--   theTasks
+-- end linkAirmail
 
 on linkDEVONthink(theApp)
   set theTasks to {}
@@ -198,7 +198,7 @@ on linkFluidApp(theApp)
   -- Assume there is a fluid app Feedly in system
   using terms from application "Feedly"
     tell application theApp
-      tell (first tab of browser window 1 whose selected is true)
+      tell selected tab of front browser window
         set theURL to URL
         set theTitle to title
       end tell
@@ -226,7 +226,7 @@ end linkBrowser
 on linkDash(theApp, theBrowser)
   tell application "System Events"
     tell process "Dash"
-      click button 1 of group 2 of splitter group 1 of window 1
+      click button 1 of group 2 of splitter group 1 of front window
       delay 1
     end tell
   end tell
